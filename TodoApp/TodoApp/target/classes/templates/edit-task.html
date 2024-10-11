@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task</title>
+    <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #1f1d1d;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e7d9d9;
+        }
+
+        /* Form Styling */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-left: 5px;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Back link styling */
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            form {
+                padding: 15px;
+            }
+
+            input[type="text"], input[type="checkbox"], button {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Edit Todo Task</h1>
+
+<form th:action="@{/edit/{id}(id=${task.id})}" th:object="${task}" method="post">
+    <div>
+        <label>Title: </label>
+        <input type="text" th:field="*{title}" required/>
+    </div>
+    <div>
+        <label>Description: </label>
+        <input type="text" th:field="*{description}" required/>
+    </div>
+    <div>
+        <label>Status: </label>
+        <input type="checkbox" th:field="*{completed}"/> Completed
+    </div>
+    <button type="submit">Update Task</button>
+</form>
+
+
+
+</body>
+</html>
