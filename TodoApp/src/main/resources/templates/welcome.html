@@ -1,0 +1,158 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Todo App</title>
+<style>
+body {
+            font-family: Arial, sans-serif;
+            background-color: #211f1f;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+			
+            text-align: center;
+            color: #eae8e8;
+        }
+		h3{
+			font-size: 30px;
+            text-align: center;
+            color: #eae8e8;
+		}
+
+        /* Button styling */
+        button a {
+            text-decoration: none;
+            color: white;
+        }
+
+        button {
+            background-color: #28a745; /* Green background */
+            color: white; /* White text */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green */
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #fc7608;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+		tr{
+			background-color: #ebedf0;
+            color: rgb(25, 23, 23);
+		}
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Link styling inside table */
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive table styling */
+        @media screen and (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                display: none; /* Hide table headers on small screens */
+            }
+
+            tr {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                text-align: left;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #007bff;
+            }
+
+            td:last-child {
+                text-align: center; /* Center-align action buttons */
+                padding-left: 0;
+            }
+        }
+</style>
+</head>
+<body>
+	<h1>Welcome to Todos Application</h1>
+	<button>
+		<a th:href="@{/addtask}">Let's Start</a>
+	</button>
+
+	<h3>Task List</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>S No</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Target Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="task, iterStat : ${tasks}">
+            <td th:text="${iterStat.index + 1}"></td> <!-- Serial Number -->
+            <td th:text="${task.title}">Task Title</td>
+            <td th:text="${task.description}">Task Description</td>
+            <td th:text="${task.completed ? 'Completed' : 'Pending'}"></td>
+            <td th:text="${#temporals.format(task.date, 'yyyy-MM-dd')}"></td> <!-- Date formatting -->
+            <td>
+                <a th:href="@{/edit/{id}(id=${task.id})}">Edit</a> |
+                <a th:href="@{/delete/{id}(id=${task.id})}">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
